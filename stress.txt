@@ -1,0 +1,27 @@
+import requests
+import time
+
+def stress_test_protocol(api_url, num_requests):
+    successes = 0
+    failures = 0
+
+    for _ in range(num_requests):
+        try:
+            # Send a request to the API
+            response = requests.get(api_url)
+            
+            # Check if the request was successful
+            if response.status_code == 200:
+                successes += 1
+            else:
+                failures += 1
+        except Exception as e:
+            print(f"Request failed: {e}")
+            failures += 1
+
+    print(f"Stress test completed: {successes} successful requests, {failures} failed requests")
+
+# Example usage:
+api_url = "https://example.com/api"
+num_requests = 1000  # Change this to the desired number of requests
+stress_test_protocol(api_url, num_requests)
